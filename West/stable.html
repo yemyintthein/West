@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horse Stable</title>
+  <style>
+    body {
+      font-family: 'Old Standard TT', serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0e6d2; /* Beige background */
+    }
+
+    header {
+      background-color: #8b4513; /* Saddle Brown */
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      font-size: 36px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    header:hover {
+      text-decoration: underline;
+    }
+
+    #stable-container {
+      display: flex;
+      justify-content: space-around;
+      padding: 20px;
+    }
+
+    .horse-container {
+      text-align: center;
+      margin: 20px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .horse-container:hover {
+      transform: scale(1.05);
+    }
+
+    .horse-image {
+      width: 200px;
+      height: 150px;
+      border: 2px solid #8b4513; /* Saddle Brown border */
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .horse-image:hover {
+      transform: scale(1.1);
+    }
+
+    .horse-details {
+      margin-top: 20px;
+      color: #8b4513; /* Saddle Brown text color */
+    }
+
+    h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+<header onclick="goToIndexPage()">
+  Horse Stable
+</header>
+
+<div id="stable-container">
+  <div class="horse-container" onclick="displayHorseDetails('Arabian')">
+    <img class="horse-image" src="img/arabian_horse.webp" alt="Arabian Horse">
+    <div class="horse-details">
+      <h3>Arabian Horse</h3>
+      <p>Speed: 25 mph</p>
+      <p>Acceleration: 3.5 m/s²</p>
+      <p>Health: 80%</p>
+      <p>Stamina: 90%</p>
+      <p>Additional details:</p>
+      <p>Arabian horses are known for their endurance and grace. They are often used for long-distance travel.</p>
+    </div>
+  </div>
+
+  <div class="horse-container" onclick="displayHorseDetails('Quarter Horse')">
+    <img class="horse-image" src="img/quarter_horse.jpg" alt="Quarter Horse">
+    <div class="horse-details">
+      <h3>Quarter Horse</h3>
+      <p>Speed: 20 mph</p>
+      <p>Acceleration: 4 m/s²</p>
+      <p>Health: 85%</p>
+      <p>Stamina: 95%</p>
+      <p>Additional details:</p>
+      <p>Quarter Horses are known for their sprinting ability, making them excellent for short-distance races.</p>
+    </div>
+  </div>
+
+  <div class="horse-container" onclick="displayHorseDetails('Thoroughbred')">
+    <img class="horse-image" src="img/thoroughbred.jpg" alt="Thoroughbred">
+    <div class="horse-details">
+      <h3>Thoroughbred</h3>
+      <p>Speed: 30 mph</p>
+      <p>Acceleration: 3 m/s²</p>
+      <p>Health: 75%</p>
+      <p>Stamina: 85%</p>
+      <p>Additional details:</p>
+      <p>Thoroughbreds are known for their speed and agility, often used in horse racing competitions.</p>
+    </div>
+  </div>
+
+  <div class="horse-container" onclick="displayHorseDetails('Clydesdale')">
+    <img class="horse-image" src="img/clydesdale.jpg" alt="Clydesdale">
+    <div class="horse-details">
+      <h3>Clydesdale</h3>
+      <p>Speed: 18 mph</p>
+      <p>Acceleration: 2.5 m/s²</p>
+      <p>Health: 90%</p>
+      <p>Stamina: 80%</p>
+      <p>Additional details:</p>
+      <p>Clydesdales are known for their strength and are often used for heavy labor and pulling loads.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function displayHorseDetails(breed) {
+    // You can implement the logic to display the details for the selected horse breed.
+    // For now, let's just show an alert with the breed name.
+    alert(`Details for ${breed}:\nSpeed: ...\nAcceleration: ...\nHealth: ...\nStamina: ...\nAdditional details: ...`);
+  }
+
+  function goToIndexPage() {
+    // Redirect to index.html
+    window.location.href = 'index.html';
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wild West Gunsmith</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Old Standard TT', serif;
+    }
+
+    header {
+      background-color: #8b4513; /* Saddle Brown */
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer; /* Add cursor pointer for the header text */
+    }
+
+    #gunsmith-container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #8b4513; /* Saddle Brown */
+    }
+
+    .item {
+      display: inline-block;
+      margin: 20px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: #ecf0f1;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #8b4513; /* Saddle Brown */
+    }
+  </style>
+</head>
+<body>
+
+    <header onclick="goToIndex()"> <!-- Add onclick attribute to call the goToIndex function -->
+        Wild West Gunsmith
+      </header>
+
+<div id="gunsmith-container">
+    <div class="item">
+      <h2>Revolver - Colt Single Action Army</h2>
+      <img src="img/colt.jpg" alt="Colt Single Action Army" width="300">
+      <p>The iconic Colt Single Action Army revolver, known as the "Peacemaker." A reliable six-shooter.</p>
+      <select id="coltQuantity">
+        <option value="0">Select Quantity</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <button onclick="purchaseItem('Colt_Single_Action_Army')">Purchase</button>
+    </div>
+  
+    <div class="item">
+      <h2>Revolver - Smith & Wesson Model 3</h2>
+      <img src="img/smith.jpg" alt="Smith & Wesson Model 3" width="300">
+      <p>A powerful top-break revolver, the Smith & Wesson Model 3 is known for its accuracy and durability.</p>
+      <select id="s&wQuantity">
+        <option value="0">Select Quantity</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <button onclick="purchaseItem('Smith_&_Wesson_Model 3')">Purchase</button>
+    </div>
+  
+    <div class="item">
+      <h2>Shotgun - Winchester Model 1887</h2>
+      <img src="img/1887.jpg" alt="Winchester Model 1887" width="300">
+      <p>A lever-action shotgun, the Winchester Model 1887 offers rapid firing and reliability in close quarters.</p>
+      <select id="winchesterQuantity">
+        <option value="0">Select Quantity</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <button onclick="purchaseItem('Winchester Model 1887')">Purchase</button>
+    </div>
+  
+    <div class="item">
+      <h2>Repeater - Henry Model 1860</h2>
+      <img src="img/henry.jpg" alt="Henry Model 1860" width="300">
+      <p>The Henry Model 1860 lever-action repeater is known for its rapid firing and accuracy at longer ranges.</p>
+      <select id="henryQuantity">
+        <option value="0">Select Quantity</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <button onclick="purchaseItem('Henry Model 1860')">Purchase</button>
+    </div>
+  
+    <div class="item">
+      <h2>Revolver - Remington Model 1858</h2>
+      <img src="img/remington.jpg" alt="Remington Model 1858" width="300">
+      <p>The Remington Model 1858 is a percussion revolver known for its reliability and accuracy.</p>
+      <select id="remingtonQuantity">
+        <option value="0">Select Quantity</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <button onclick="purchaseItem('Remington Model 1858')">Purchase</button>
+    </div>
+  
+    <div class="item">
+      <h2>Shotgun - Coach Gun</h2>
+      <img src="img/coach.jpg" alt="Coach Gun" width="300">
+      <p>The Coach Gun is a short-barreled shotgun, perfect for close-quarters defense and quick draws.</p>
+      <select id="coachGunQuantity">
+        <option value="0">Select Quantity</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <button onclick="purchaseItem('Coach Gun')">Purchase</button>
+    </div>
+  
+    <div class="item">
+      <h2>Repeater - Spencer Model 1860</h2>
+      <img src="img/1860.jpg" alt="Spencer Model 1860" width="300">
+      <p>The Spencer Model 1860 is a lever-action repeating rifle, known for its rapid fire and magazine system.</p>
+      <select id="spencerQuantity">
+        <option value="0">Select Quantity</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <button onclick="purchaseItem('Spencer Model 1860')">Purchase</button>
+    </div>
+  
+    <div class="item">
+      <h2>Ammunition - .44-40 Winchester</h2>
+      <img src="img/.44-40.jpg" alt=".44-40 Winchester Ammunition" width="300">
+      <p>.44-40 Winchester ammunition, suitable for lever-action rifles and revolvers. Known for its versatility.</p>
+      <select id="winchesterAmmoQuantity">
+        <option value="0">Select Quantity</option>
+        <option value="50">50 rounds</option>
+        <option value="100">100 rounds</option>
+        <option value="200">200 rounds</option>
+      </select>
+      <button onclick="purchaseItem('.44-40 Winchester Ammunition')">Purchase</button>
+    </div>
+  
+    <div class="item">
+      <h2>Ammunition - 12 Gauge Shotgun Shells</h2>
+      <img src="img/shells.jpg" alt="12 Gauge Shotgun Shells" width="300">
+      <p>12 Gauge shotgun shells, suitable for various shotguns. Offers different shot options for different needs.</p>
+      <select id="shotgunAmmoQuantity">
+        <option value="0">Select Quantity</option>
+        <option value="25">25 rounds</option>
+        <option value="50">50 rounds</option>
+        <option value="100">100 rounds</option>
+      </select>
+      <button onclick="purchaseItem('12 Gauge Shotgun Shells')">Purchase</button>
+    </div>
+  
+    <div class="item">
+      <h2>Accessory - Gun Cleaning Kit</h2>
+      <img src="img/kit.jpg" alt="Gun Cleaning Kit" width="300">
+      <p>A comprehensive gun cleaning kit to keep your firearms in top condition. Includes brushes, patches, and oil.</p>
+      <select id="cleaningKitQuantity">
+        <option value="0">Select Quantity</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <button onclick="purchaseItem('Gun Cleaning Kit')">Purchase</button>
+    </div>
+  
+    <div class="item">
+      <h2>Accessory - Leather Rifle Sling</h2>
+      <img src="img/leather.jpg" alt="Leather Rifle Sling" width="300">
+      <p>A sturdy leather rifle sling for comfortable carrying and easy access to your long firearms.</p>
+      <select id="rifleSlingQuantity">
+        <option value="0">Select Quantity</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <button onclick="purchaseItem('Leather Rifle Sling')">Purchase</button>
+    </div>
+  </div>
+
+
+  <script>
+    function purchaseItem(item) {
+      const quantityElement = document.getElementById(`${item.replace(/ /g, '_')}Quantity`);
+      const quantity = parseInt(quantityElement.value);
+  
+      if (isNaN(quantity) || quantity <= 0) {
+        alert('Please select a valid quantity before purchasing.');
+      } else {
+        alert(`Thank you for purchasing ${quantity} ${item}(s). Total cost: $${calculateTotalCost(quantity)}`);
+        quantityElement.value = '0'; // Reset quantity to default after purchase
+      }
+    }
+  
+    function calculateTotalCost(quantity) {
+      // Assuming a simple cost of $50 per item
+      const itemCost = 50;
+      return quantity * itemCost;
+    }
+  
+    function goToIndex() {
+      window.location.href = 'index.html'; // Redirect to index.html
+    }
+  </script>
+  
+</body>
+</html>

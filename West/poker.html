@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Poker Game</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Old Standard TT', serif;
+      background-color: #ffe4b5; /* Moccasin */
+      color: #8b4513; /* Saddle Brown */
+    }
+
+    #game-container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #8b4513; /* Saddle Brown */
+    }
+
+    .player {
+      margin-top: 40px;
+    }
+
+    .cards {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+
+    .card {
+      width: 80px;
+      height: 120px;
+      border: 1px solid #8b4513; /* Saddle Brown */
+      border-radius: 8px;
+      padding: 10px;
+      background-color: #cd853f; /* Peru */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      color: #8b4513; /* Saddle Brown */
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 18px;
+      cursor: pointer;
+      background-color: #8b4513; /* Saddle Brown */
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #654321; /* Dark Brown */
+    }
+
+    #winner {
+      font-size: 28px;
+      margin-top: 20px;
+      color: #e74c3c; /* Indian Red */
+      font-weight: bold;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
+
+    .modal-content {
+      text-align: center;
+    }
+
+    .close {
+      cursor: pointer;
+      color: #8b4513; /* Saddle Brown */
+      font-size: 24px;
+      font-weight: bold;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .close:hover {
+      color: #654321; /* Dark Brown */
+    }
+
+    input {
+      padding: 14px;
+      margin-top: 20px;
+      font-size: 18px;
+      border: 1px solid #8b4513; /* Saddle Brown */
+      border-radius: 4px;
+      width: 200px;
+      text-align: center;
+    }
+
+    .btn-bet {
+      margin-top: 20px;
+      padding: 14px 28px;
+      font-size: 18px;
+      cursor: pointer;
+      background-color: #8b4513; /* Saddle Brown */
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .btn-bet:hover {
+      background-color: #654321; /* Dark Brown */
+    }
+  </style>
+</head>
+<body>
+
+<div id="game-container">
+  <h1>Simple Poker Game</h1>
+
+  <div class="player" id="player1">
+    <h3>Player 1</h3>
+    <div class="cards" id="cards1"></div>
+    <p>Bet: $<span id="bet1">0</span></p>
+  </div>
+
+  <div class="player" id="player2">
+    <h3>Player 2</h3>
+    <div class="cards hidden" id="cards2"></div>
+    <p>Bet: $<span id="bet2">0</span></p>
+  </div>
+
+  <div class="player" id="player3">
+    <h3>Player 3</h3>
+    <div class="cards hidden" id="cards3"></div>
+    <p>Bet: $<span id="bet3">0</span></p>
+  </div>
+
+  <button onclick="dealCards()">Deal Cards</button>
+  <button onclick="openBetModal()">Place Bet</button>
+  <p id="winner"></p>
+
+  <div id="betModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeBetModal()">&times;</span>
+      <h2>Place Your Bet</h2>
+      <input type="number" id="betAmount" placeholder="Enter bet amount">
+      <button class="btn-bet" onclick="placeBet()">Bet</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
+  const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+
+  let players = [
+    { id: 'player1', cardsId: 'cards1', betId: 'bet1', hand: [] },
+    { id: 'player2', cardsId: 'cards2', betId: 'bet2', hand: [] },
+    { id: 'player3', cardsId: 'cards3', betId: 'bet3', hand: [] }
+  ];
+
+  function createDeck() {
+    const deck = [];
+    for (const suit of suits) {
+      for (const value of values) {
+        deck.push({ suit, value });
+      }
+    }
+    return deck;
+  }
+
+  function shuffleDeck(deck) {
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+  }
+
+  function dealCards() {
+    const deck = createDeck();
+    shuffleDeck(deck);
+
+    players.forEach(player => {
+      const cardsContainer = document.getElementById(player.cardsId);
+      cardsContainer.innerHTML = '';
+      player.hand = [];
+
+      for (let i = 0; i < 5; i++) {
+        const card = deck.pop();
+        player.hand.push(card);
+        const cardElement = document.createElement('div');
+        cardElement.classList.add('card');
+        cardElement.textContent = `${card.value} of ${card.suit}`;
+        cardsContainer.appendChild(cardElement);
+      }
+
+      // Hide other players' cards
+      if (player.cardsId !== 'cards1') {
+        cardsContainer.classList.add('hidden');
+      }
+    });
+
+    // Clear bets and displayBets for all players
+    clearBets();
+    displayBets();
+
+    // After dealing cards, place bets randomly for players 2 and 3
+    placeBetRandomly('bet2');
+    placeBetRandomly('bet3');
+
+    document.getElementById('winner').textContent = '';
+  }
+
+  function openBetModal() {
+    document.getElementById('betModal').style.display = 'block';
+  }
+
+  function closeBetModal() {
+    document.getElementById('betModal').style.display = 'none';
+  }
+
+  function placeBet() {
+    const betAmount = document.getElementById('betAmount').value;
+    if (!betAmount || isNaN(betAmount) || betAmount <= 0) {
+      alert('Please enter a valid bet amount.');
+      return;
+    }
+
+    players[0].bet = parseInt(document.getElementById('bet1').textContent) + parseInt(betAmount);
+    document.getElementById('bet1').textContent = players[0].bet;
+    closeBetModal();
+
+    // After the 5th bet, guarantee a win for one of the players at random
+    if (parseInt(betAmount) > 0 && players[0].bet >= 5) {
+      const randomPlayerIndex = Math.floor(Math.random() * 2) + 1; // Random player 2 or 3
+      players[randomPlayerIndex].bet += 5;
+      document.getElementById(`bet${randomPlayerIndex + 1}`).textContent = players[randomPlayerIndex].bet;
+      announceWinner();  // Call the function to display the winning message
+    }
+  }
+
+  function placeBetRandomly(betId) {
+    const randomBetAmount = Math.floor(Math.random() * 10) + 1; // Random bet between 1 and 10
+    const playerIndex = parseInt(betId[betId.length - 1]) - 1;
+    players[playerIndex].bet = parseInt(document.getElementById(betId).textContent) + randomBetAmount;
+    document.getElementById(betId).textContent = players[playerIndex].bet;
+  }
+
+  function clearBets() {
+    players.forEach(player => {
+      document.getElementById(player.betId).textContent = '0';
+    });
+  }
+
+  function displayBets() {
+    players.forEach(player => {
+      document.getElementById(player.betId).textContent = '0';
+    });
+  }
+
+  function determineWinner() {
+    let winner = players[0];
+    for (let i = 1; i < players.length; i++) {
+      if (getHandValue(players[i].hand) > getHandValue(winner.hand)) {
+        winner = players[i];
+      }
+    }
+    return winner;
+  }
+
+  function getHandValue(hand) {
+    const valuesMap = {
+      '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14
+    };
+
+    let maxCardValue = 0;
+    hand.forEach(card => {
+      const cardValue = valuesMap[card.value];
+      if (cardValue > maxCardValue) {
+        maxCardValue = cardValue;
+      }
+    });
+
+    return maxCardValue;
+  }
+
+  function announceWinner() {
+    const winner = determineWinner();
+    if (winner.id === 'player1') {
+      document.getElementById('winner').textContent = `Player 1 wins!`;
+    }
+  }
+</script>
+
+</body>
+</html>

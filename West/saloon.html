@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wild West Saloon & Café</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f1e6; /* Light beige background */
+    }
+
+    header {
+      background-color: #8b4513; /* Saddle Brown */
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      font-size: 24px;
+    }
+
+    #menu-container {
+      display: flex;
+      justify-content: space-around;
+      padding: 20px;
+      background-color: #e0d3bf; /* Light brown menu background */
+    }
+
+    #menu {
+      width: 70%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .item {
+      flex: 1 0 calc(33.33% - 20px);
+      margin: 10px;
+      padding: 15px;
+      border: 1px solid #7f5a38; /* Dark brown border */
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s;
+    }
+
+    .item:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #order-summary {
+      width: 30%;
+      background-color: #e0d3bf;
+      padding: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #7f5a38; /* Dark brown button */
+      color: #ffcc99; /* Light brown text */
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #593b1d; /* Darker brown on hover */
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #8b4513;
+      color: #ffffff;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  Wild West Saloon & Café
+</header>
+
+<div id="menu-container">
+  <div id="menu">
+    <div class="item">
+      <h2>Cowboy Chili</h2>
+      <p>Spicy beef chili served with beans and topped with shredded cheese.</p>
+      <p>$8.00</p>
+      <button onclick="addToCart('Cowboy Chili', 8.00)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h2>Western BBQ Ribs</h2>
+      <p>Slow-cooked ribs slathered in tangy barbecue sauce, served with coleslaw.</p>
+      <p>$15.00</p>
+      <button onclick="addToCart('Western BBQ Ribs', 15.00)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h2>Frontier Steak</h2>
+      <p>Juicy grilled steak seasoned with frontier spices, accompanied by mashed potatoes.</p>
+      <p>$20.00</p>
+      <button onclick="addToCart('Frontier Steak', 20.00)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h2>Sarsaparilla</h2>
+      <p>Traditional Wild West root beer served chilled.</p>
+      <p>$3.50</p>
+      <button onclick="addToCart('Sarsaparilla', 3.50)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h2>Whiskey</h2>
+      <p>Choose from a selection of fine whiskeys to enjoy straight or on the rocks.</p>
+      <p>Prices vary</p>
+      <button onclick="addToCart('Whiskey', 0)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h2>Beer</h2>
+      <p>Cold and refreshing beer, perfect for the rugged cowboy.</p>
+      <p>$5.00</p>
+      <button onclick="addToCart('Beer', 5.00)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h2>Chewing Tobacco</h2>
+      <p>Authentic chewing tobacco for those looking to embrace the Wild West spirit.</p>
+      <p>$2.50</p>
+      <button onclick="addToCart('Chewing Tobacco', 2.50)">Add to Cart</button>
+    </div>
+
+    <!-- Add more food and drink items as needed -->
+
+    <div class="item">
+      <h2>Whiskey Sour</h2>
+      <p>Classic cocktail made with whiskey, lemon juice, and a touch of sweetness.</p>
+      <p>$7.00</p>
+      <button onclick="addToCart('Whiskey Sour', 7.00)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h2>Prickly Pear Punch</h2>
+      <p>Refreshing punch made with prickly pear, citrus, and a splash of soda.</p>
+      <p>$5.50</p>
+      <button onclick="addToCart('Prickly Pear Punch', 5.50)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h2>Trailblazer Iced Tea</h2>
+      <p>Cool iced tea with a hint of mint, perfect for the trailblazing soul.</p>
+      <p>$4.00</p>
+      <button onclick="addToCart('Trailblazer Iced Tea', 4.00)">Add to Cart</button>
+    </div>
+
+    <!-- Add more drink items as needed -->
+  </div>
+
+  <div id="order-summary">
+    <h2>Order Summary</h2>
+    <ul id="cart"></ul>
+    <p>Total: $<span id="total">0.00</span></p>
+    <button onclick="placeOrder()">Place Order</button>
+    <br><br><br><br><br><br>
+    <a href="poker.html"><img src="img/table.png" alt="Poker Table" style="width: 450px; height: 250px; cursor: pointer;"></a>
+    <br><br><br><br><br><br>
+    <a href="index.html"><img src="img/door.png" alt="Poker Table" style="width: 420px; height: 250px; cursor: pointer;"></a>
+</div>
+</div>
+
+
+  
+<footer>
+  &copy; 2024 Wild West Saloon & Café. All rights reserved.
+</footer>
+
+<script>
+  let cart = [];
+  let total = 0;
+
+  function addToCart(itemName, price) {
+    cart.push({ name: itemName, price: price });
+    updateCart();
+  }
+
+  function updateCart() {
+    const cartList = document.getElementById('cart');
+    const totalElement = document.getElementById('total');
+    total = 0;
+
+    cartList.innerHTML = '';
+    cart.forEach(item => {
+      const listItem = document.createElement('li');
+      listItem.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+      cartList.appendChild(listItem);
+      total += item.price;
+    });
+
+    totalElement.textContent = total.toFixed(2);
+  }
+
+  function placeOrder() {
+    if (cart.length === 0) {
+      alert('Your cart is empty. Please add items before placing an order.');
+    } else {
+      alert(`Order placed successfully! Total amount: $${total.toFixed(2)}`);
+      // Additional logic for processing the order can be added here
+      cart = [];
+      updateCart();
+    }
+  }
+</script>
+
+</body>
+</html>
